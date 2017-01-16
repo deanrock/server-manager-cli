@@ -9,7 +9,7 @@ CLI tool for server manager (https://github.com/deanrock/server-manager).
 ## Setup
 
 ```bash
-pip install https://github.com/deanrock/server-manager-cli
+pip install git+https://github.com/deanrock/server-manager-cli
 ```
 
 ## Credentials file
@@ -26,7 +26,7 @@ password=mypassword
 
 ### Redeploy application `php56` of `my-blog` account:
 ```bash
-smcli --account=my-blog redeploy_app --name=php56
+smcli --account=my-blog redeploy-app --name=php56
 ```
 
 ## For developers

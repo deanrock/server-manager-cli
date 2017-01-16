@@ -59,7 +59,7 @@ def profile():
     print(json.dumps(p['user'], indent=4))
 
 
-@cli.command()
+@cli.command(name='redeploy-app')
 @click.option('--name',
               prompt='App name',
               help='Name of the application to redeploy.')
