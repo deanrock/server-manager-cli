@@ -2,28 +2,32 @@ import click
 import os
 import json
 import sys
-from robobrowser import RoboBrowser
+import requests
 import ConfigParser
 
 
 class API:
     def __init__(self, host):
         self.host = host
+        self.session = requests.Session()
 
     def _get(self, path):
-        return self.browser.session.get(self.host + path).json()
+        return self.session.get(self.host + path).json()
 
-    def _post(self, path):
-        return self.browser.session.post(self.host + path).json()
+    def _post(self, path, data=None):
+        r = self.session.post(self.host + path, data=json.dumps(data))
+
+        # return empty object if no response text (this happens on login API)
+        if r.text == '':
+            return {}
+
+        return r.json()
 
     def login(self, username, password):
-        self.browser = RoboBrowser(history=True, parser='html.parser')
-        self.browser.open(self.host)
-
-        form = self.browser.get_form(action='/accounts/login/')
-        form['username'].value = username
-        form['password'].value = password
-        self.browser.submit_form(form)
+        return self._post('/api/v1/auth/login', data={
+            'username': username,
+            'password': password
+        })
 
     def profile(self):
         return self._get('/api/v1/profile')

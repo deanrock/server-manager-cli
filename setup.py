@@ -6,8 +6,7 @@ setup(
     py_modules=["smcli.py"],
     install_requires=[
         "click==6.7",
-        "requests==2.12.4",
-        "robobrowser==0.5.3"
+        "requests==2.12.4"
     ],
 
     entry_points="""
